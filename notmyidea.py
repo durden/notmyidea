@@ -59,11 +59,28 @@ def get_user_contributions(github_user, fork_urls):
             yield url
 
 
+def _parse_args():
+    """Parse arguments and return username"""
+
+    import argparse
+
+    desc = 'Show projects a github user has contributed to besides their own'
+    parser = argparse.ArgumentParser(prog='notmyidea.py', description=desc)
+
+    parser.add_argument('-u', '--username', action='store', required=True,
+                        default=None, help='Github username to lookup')
+
+    args = parser.parse_args()
+    return args.username
+
+
 def main():
     """start"""
 
-    fork_urls = get_user_forks('durden')
-    for contrib in get_user_contributions('durden', fork_urls):
+    username = _parse_args()
+
+    fork_urls = get_user_forks(username)
+    for contrib in get_user_contributions(username, fork_urls):
         print contrib
 
 
