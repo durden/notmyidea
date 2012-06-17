@@ -27,4 +27,12 @@ file.
 
 ###Usage
 
+1. Command line
+
     - python notmyidea.py -h
+    - python notmyidea.py -u <username>
+
+2. Web
+
+    - python app.py
+    - Browse to 0.0.0.0:5000
