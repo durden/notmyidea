@@ -41,6 +41,23 @@ def get_user_forks(github_user):
     return fork_urls
 
 
+def _api_url_to_commits_url(api_url, github_user):
+    """
+    Take url used by API for a repo's information and return url to all commits
+    from given user on that repo
+    """
+
+    # Example api url: https://api.github.com/repos/saltycrane/trace-tools
+    # Example commit url:
+        # https://github.com/saltycrane/trace-tools/commits?author=durden
+
+    url_parts = api_url.split('/')
+    repo = url_parts[-1]
+    repo_owner = url_parts[-2]
+    return 'https://github.com/%s/%s/commits?author=%s' % (repo_owner, repo,
+                                                           github_user)
+
+
 def get_user_contributions(github_user, fork_urls):
     """Generate list of project urls and commit count given user contributed"""
 
@@ -57,7 +74,8 @@ def get_user_contributions(github_user, fork_urls):
         users = json.loads(resp.content)
         for user in users:
             if github_user == user['login']:
-                yield url, user['contributions']
+                yield url, user['contributions'], _api_url_to_commits_url(
+                                                            url, github_user)
 
 
 def _parse_args():
@@ -81,8 +99,8 @@ def main():
     username = _parse_args()
 
     fork_urls = get_user_forks(username)
-    for url, commits in get_user_contributions(username, fork_urls):
-        print url, commits
+    for url, cnt, commits_url in get_user_contributions(username, fork_urls):
+        print '%s,%d,%s' % (url, cnt, commits_url)
 
 
 if __name__ == "__main__":
