@@ -1,2 +1,3 @@
 requests==0.13.0
 -e git://github.com/durden/frappy.git#egg=frappy
+flask==0.8

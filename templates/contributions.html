@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ user }} Contributions</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>URL</th>
+            <th>Number of Commits</th>
+            <th>Commit Info</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for contrib in contributions %}
+            <tr>
+                <td><a href="{{ contrib.url }}">{{ contrib.url }}</a></td>
+                <td>{{ contrib.commit_cnt }}</td>
+                <td><a href="{{ contrib.commits_url }}">{{ contrib.commits_url }}</a></td>
+            </tr>
+        {% else %}
+            <p>
+                No contributions found.  Maybe {{ user }} should step out of
+                their comfort zone?
+            </p>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

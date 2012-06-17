@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Not My Idea - Do you contribute to other's ideas?</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!--<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
+        <link rel=stylesheet type=text/css href="{{ url_for('static',
+        filename='css/style.css') }}">-->
+    </head>
+    <body>
+        <div class="container">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <ul class="nav">
+                            <li><a href="/">home</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% block content %} {% endblock %}
+        </div>
+        <div class="footer">
+            <p>
+                <small>
+                    Created with coffee and rock-n-roll music by
+                    <a href="http://twitter.com/durden20">durden</a>.
+                    To contribute
+                    <a href="http://github.com/durden/notmyidea">fork it</a>.
+                </small>
+            </p>
+        </div>
+    </body>
+</html>

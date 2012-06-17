@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Not My Idea</h1>
+    <form class="form-horizontal" method="GET" action="/lookup">
+        <fieldset>
+            <input id="github_user" name="github_user" type="text">
+            <button type="submit" class="btn btn-large btn-primary">Show me</button>
+        </fieldset>
+    </form>
+{% endblock %}
