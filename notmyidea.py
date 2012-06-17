@@ -42,7 +42,7 @@ def get_user_forks(github_user):
 
 
 def get_user_contributions(github_user, fork_urls):
-    """Generate list of project urls that given user has contributed to"""
+    """Generate list of project urls and commit count given user contributed"""
 
     for url in fork_urls:
         # Just use requests here since we already have the api url, no use in
@@ -55,8 +55,9 @@ def get_user_contributions(github_user, fork_urls):
             yield None
 
         users = json.loads(resp.content)
-        if github_user in [user['login'] for user in users]:
-            yield url
+        for user in users:
+            if github_user == user['login']:
+                yield url, user['contributions']
 
 
 def _parse_args():
@@ -80,8 +81,8 @@ def main():
     username = _parse_args()
 
     fork_urls = get_user_forks(username)
-    for contrib in get_user_contributions(username, fork_urls):
-        print contrib
+    for url, commits in get_user_contributions(username, fork_urls):
+        print url, commits
 
 
 if __name__ == "__main__":
