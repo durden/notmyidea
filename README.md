@@ -36,3 +36,13 @@ file.
 
     - python app.py
     - Browse to 0.0.0.0:5000
+
+3. Host ([heroku](http://heroku.com))
+
+    - [Heroku docs](https://devcenter.heroku.com/articles/python)
+    - TLDR;
+        - Install [heroko CLI client](https://devcenter.heroku.com/categories/command-line)
+        - git clone https://github.com/durden/notmyidea.git
+        - heroku login
+        - herkou create <appname_optional>
+        - git push heroku master
