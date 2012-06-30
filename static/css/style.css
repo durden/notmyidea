@@ -1,6 +1,7 @@
 body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-align: left;
+    padding-top: 50px;
 }
 
 h1 {
@@ -24,11 +25,14 @@ thead {
     font-size: 20px;
 }
 
-.footer {
-    text-align: center;
+form {
+    margin-top: 30px;
 }
 
-.btn {
-    display: block;
-    margin-top: 20px;
+.container {
+    width: 800px;
+}
+
+.footer {
+    text-align: center;
 }

@@ -19,6 +19,13 @@ def home():
     return render_template('index.html')
 
 
+@app.route('/about')
+def about():
+    """about"""
+
+    return render_template('about.html')
+
+
 @app.route('/lookup')
 def lookup():
     """Lookup github user's contributions"""
