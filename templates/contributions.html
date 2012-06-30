@@ -2,20 +2,18 @@
 
 {% block content %}
 <h1>{{ user }} Contributions</h1>
-<table class="table">
+<table class="table table-striped table-bordered">
     <thead>
         <tr>
-            <th>URL</th>
-            <th>Number of Commits</th>
-            <th>Commit Info</th>
+            <th>Project</th>
+            <th>Commits</th>
         </tr>
     </thead>
     <tbody>
         {% for contrib in contributions %}
             <tr>
-                <td><a href="{{ contrib.url }}">{{ contrib.url }}</a></td>
-                <td>{{ contrib.commit_cnt }}</td>
-                <td><a href="{{ contrib.commits_url }}">{{ contrib.commits_url }}</a></td>
+                <td><a href="{{ contrib.url }}">{{ contrib.short_url }}</a></td>
+                <td><a href="{{ contrib.commits_url }}">{{ contrib.commit_cnt }}</a></td>
             </tr>
         {% else %}
             <p>

@@ -34,7 +34,12 @@ def lookup():
 
         contributions = []
         for url, cnt, commits_url in get_user_contributions(username, fork_urls):
-            contributions.append({'url': url, 'commit_cnt': cnt,
+            # Just get username and project name for pretty display
+            short_url = '/'.join(url.split('/')[-2:])
+
+            contributions.append({'url': url,
+                                  'short_url': short_url,
+                                  'commit_cnt': cnt,
                                   'commits_url': commits_url})
 
         return render_template('contributions.html', user=username,
