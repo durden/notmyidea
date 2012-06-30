@@ -46,3 +46,4 @@ file.
         - heroku login
         - herkou create <appname_optional>
         - git push heroku master
+        - heroku ps:scale web=1 (startup web process)
