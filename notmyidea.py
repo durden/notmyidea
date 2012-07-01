@@ -69,7 +69,7 @@ def get_user_contributions(github_user, fork_urls):
 
         if resp.status_code != 200:
             print 'Error requesting %s fork from API' % (contributors_url)
-            yield None
+            yield (None, None, None)
 
         users = json.loads(resp.content)
         for user in users:
