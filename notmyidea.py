@@ -30,15 +30,15 @@ def get_user_info(github_user):
 
 
 def get_user_forks(github_user):
-    """Get a list of repos from given user that are forks aka not their own"""
+    """
+    Generate list of repos from given user that are forks aka not their own
+    """
 
     g = Github()
     user = getattr(g.users, github_user)
 
     # FIXME: Handle errors
     repos = user.repos().response
-
-    fork_urls = []
 
     for repo in repos:
         if not repo['fork']:
@@ -49,9 +49,7 @@ def get_user_forks(github_user):
         repo_details = user_repos(repo['name'])
 
         # FIXME: Handle errors
-        fork_urls.append(repo_details.response['parent']['url'])
-
-    return fork_urls
+        yield repo_details.response['parent']['url']
 
 
 def _api_url_to_commits_url(api_url, github_user):
@@ -71,10 +69,10 @@ def _api_url_to_commits_url(api_url, github_user):
                                                            github_user)
 
 
-def get_user_contributions(github_user, fork_urls):
+def get_user_contributions(github_user):
     """Generate list of project urls and commit count given user contributed"""
 
-    for url in fork_urls:
+    for url in get_user_forks(github_user):
         # Just use requests here since we already have the api url, no use in
         # re-parsing just to use frappy
         contributors_url = '%s/contributors' % (url)
@@ -82,7 +80,7 @@ def get_user_contributions(github_user, fork_urls):
 
         if resp.status_code != 200:
             print 'Error requesting %s fork from API' % (contributors_url)
-            yield (None, None, None)
+            continue
 
         users = json.loads(resp.content)
         for user in users:
@@ -111,8 +109,7 @@ def main():
 
     username = _parse_args()
 
-    fork_urls = get_user_forks(username)
-    for url, cnt, commits_url in get_user_contributions(username, fork_urls):
+    for url, cnt, commits_url in get_user_contributions(username):
         print '%s,%d,%s' % (url, cnt, commits_url)
 
 

@@ -6,7 +6,7 @@ Tiny web interface around notmyidea.py
 
 from flask import Flask, render_template, request
 
-from notmyidea import get_user_forks, get_user_contributions, get_user_info
+from notmyidea import get_user_contributions, get_user_info
 
 app = Flask(__name__)
 app.debug = True
@@ -38,10 +38,9 @@ def lookup():
             return None
 
         user_info = get_user_info(username)
-        fork_urls = get_user_forks(username)
 
         contributions = []
-        for url, cnt, commits_url in get_user_contributions(username, fork_urls):
+        for url, cnt, commits_url in get_user_contributions(username):
             # Just get username and project name for pretty display
             short_url = '/'.join(url.split('/')[-2:])
 
