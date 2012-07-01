@@ -49,6 +49,8 @@ def lookup():
                                   'commit_cnt': cnt,
                                   'commits_url': commits_url})
 
+        contributions = sorted(contributions, key=lambda x: x['commit_cnt'],
+                               reverse=True)
         return render_template('contributions.html', user=username,
                                contributions=contributions)
 
