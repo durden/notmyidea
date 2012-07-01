@@ -1,5 +1,3 @@
 - Add ratio of code on owned projects vs. other projects
-- Add information about the developer on contributions page
-    - Get this from github easily.
 - Add celery, etc. for some type of background queuing and show user wait
   cursor with progress or something

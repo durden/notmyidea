@@ -20,11 +20,22 @@ except ImportError:
     raise ImportError('Requests required, install it via requirements.txt')
 
 
+def get_user_info(github_user):
+    """Get information about user and return as dictionary"""
+
+    g = Github()
+
+    # FIXME: Handle errors
+    return g.users(github_user).response
+
+
 def get_user_forks(github_user):
     """Get a list of repos from given user that are forks aka not their own"""
 
     g = Github()
     user = getattr(g.users, github_user)
+
+    # FIXME: Handle errors
     repos = user.repos().response
 
     fork_urls = []
@@ -36,6 +47,8 @@ def get_user_forks(github_user):
         g = Github()
         user_repos = getattr(g.repos, github_user)
         repo_details = user_repos(repo['name'])
+
+        # FIXME: Handle errors
         fork_urls.append(repo_details.response['parent']['url'])
 
     return fork_urls

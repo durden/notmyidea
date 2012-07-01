@@ -1,26 +1,42 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>{{ user }} Contributions</h1>
-    <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>Project</th>
-                <th>Commits</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for contrib in contributions %}
-                <tr>
-                    <td><a href="{{ contrib.url }}">{{ contrib.short_url }}</a></td>
-                    <td><a href="{{ contrib.commits_url }}">{{ contrib.commit_cnt }}</a></td>
-                </tr>
-            {% else %}
-                <p>
-                    No contributions found.  Maybe {{ user }} should step out of
-                    their comfort zone?
-                </p>
-            {% endfor %}
-        </tbody>
-    </table>
+    <h1>{{ user_info.login }} Contributions</h1>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span4">
+                <ul class="unstyled">
+                    <li>{{user_info.name}}</li>
+                    <li>{{user_info.public_repos}} Repos</li>
+                    <li><a href="{{user_info.blog}}">{{user_info.blog}}</a></li>
+                    <li><a href="http://github.com/{{user_info.login}}">Github Profile</a></li>
+                    <li>{{user_info.location}}</li>
+                    <li class="medium">{{user_info.bio}}</li>
+                </ul>
+            </div>
+            <div class="span8">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Project</th>
+                            <th>Commits</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for contrib in contributions %}
+                            <tr>
+                                <td><a href="{{ contrib.url }}">{{ contrib.short_url }}</a></td>
+                                <td><a href="{{ contrib.commits_url }}">{{ contrib.commit_cnt }}</a></td>
+                            </tr>
+                        {% else %}
+                            <p>
+                                No contributions found.  Maybe {{ user }} should step out of
+                                their comfort zone?
+                            </p>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock %}
