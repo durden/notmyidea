@@ -25,7 +25,6 @@ def get_user_info(github_user):
 
     g = Github()
 
-    # FIXME: Handle errors
     return g.users(github_user).response
 
 
@@ -42,7 +41,6 @@ def get_user_forks(github_user):
     while True:
         user = getattr(g.users, github_user)
 
-        # FIXME: Handle errors
         repos = user.repos(page=page).response
         if not repos:
             break
@@ -54,7 +52,6 @@ def get_user_forks(github_user):
             user_repos = getattr(g.repos, github_user)
             repo_details = user_repos(repo['name'])
 
-            # FIXME: Handle errors
             yield repo_details.response['parent']['url']
 
         page += 1

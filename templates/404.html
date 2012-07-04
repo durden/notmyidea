@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Oops...</h1>
+    <p>
+        Looks like we had a problem talking to
+        <a href="http://github.com">Github</a>.  This usually happens for one
+        of the following:
+        <ul>
+            <li>
+                Requested user doesn't exist, <a href="http://github.com/{{username}}">try Github directly</a>
+            </li>
+            <li>
+                Github API down, <a href="http://status.github.com">check Github status</a>
+            </li>
+        </ul>
+    </p>
+    <p class="octocat">
+        <a href="http://octodex.github.com/pythocat"> 
+            <img height="424" width="424" src="{{ url_for('static', filename='img/pythocat.png') }}" alt="the Pythocat" />
+        </a>
+    </p>
+
+{% endblock %}
+
+

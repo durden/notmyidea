@@ -40,3 +40,11 @@ form {
 .medium {
     font-size: 14px;
 }
+
+p.octocat {
+    text-align: center;
+}
+
+p.octocat img {
+    margin: 40px auto;
+}
