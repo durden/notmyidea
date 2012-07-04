@@ -34,22 +34,30 @@ def get_user_forks(github_user):
     Generate list of repos from given user that are forks aka not their own
     """
 
+    # TODO: Logic in this method is pretty nasty
+
+    page = 1
     g = Github()
-    user = getattr(g.users, github_user)
 
-    # FIXME: Handle errors
-    repos = user.repos().response
-
-    for repo in repos:
-        if not repo['fork']:
-            continue
-
-        g = Github()
-        user_repos = getattr(g.repos, github_user)
-        repo_details = user_repos(repo['name'])
+    while True:
+        user = getattr(g.users, github_user)
 
         # FIXME: Handle errors
-        yield repo_details.response['parent']['url']
+        repos = user.repos(page=page).response
+        if not repos:
+            break
+
+        for repo in repos:
+            if not repo['fork']:
+                continue
+
+            user_repos = getattr(g.repos, github_user)
+            repo_details = user_repos(repo['name'])
+
+            # FIXME: Handle errors
+            yield repo_details.response['parent']['url']
+
+        page += 1
 
 
 def _api_url_to_commits_url(api_url, github_user):
