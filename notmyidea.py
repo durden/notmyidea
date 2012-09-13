@@ -57,6 +57,22 @@ def get_user_forks(github_user):
         page += 1
 
 
+def _api_url_to_project_url(api_url):
+    """
+    Take url used by API for a repo's information and return url to project
+    page on normal github interface
+    """
+
+    # Example api url: https://api.github.com/repos/saltycrane/trace-tools
+    # Example commit url:
+        # https://github.com/saltycrane/trace-tools/
+
+    url_parts = api_url.split('/')
+    repo = url_parts[-1]
+    repo_owner = url_parts[-2]
+    return 'https://github.com/%s/%s/' % (repo_owner, repo)
+
+
 def _api_url_to_commits_url(api_url, github_user):
     """
     Take url used by API for a repo's information and return url to all commits
@@ -67,11 +83,8 @@ def _api_url_to_commits_url(api_url, github_user):
     # Example commit url:
         # https://github.com/saltycrane/trace-tools/commits?author=durden
 
-    url_parts = api_url.split('/')
-    repo = url_parts[-1]
-    repo_owner = url_parts[-2]
-    return 'https://github.com/%s/%s/commits?author=%s' % (repo_owner, repo,
-                                                           github_user)
+    repo_url = _api_url_to_project_url(api_url)
+    return '%s/commits?author=%s' % (repo_url, github_user)
 
 
 def get_user_contributions(github_user):
@@ -90,8 +103,10 @@ def get_user_contributions(github_user):
         users = json.loads(resp.content)
         for user in users:
             if github_user == user['login']:
-                yield url, user['contributions'], _api_url_to_commits_url(
-                                                            url, github_user)
+                proj_url = _api_url_to_project_url(url)
+                commits_url = _api_url_to_commits_url( url, github_user)
+
+                yield proj_url, user['contributions'], commits_url
 
 
 def _parse_args():
